@@ -1,3 +1,5 @@
+import notifier from 'node-notifier';
+
 const timeArgs = process.argv.slice(2);
 
 let timeSec = 0;
@@ -32,4 +34,9 @@ for (const timeArg of timeArgs) {
     appliedUnits[unitName] = true; 
 }
 
-setTimeout(console.log, timeSec * 1000, 'Таймер!');
+setTimeout(notifier.notify, timeSec * 1000, {
+    title: 'Таймер!',
+    message: `Таймер на ${timeSec} секунд(ы) сработал`,
+    sound: true,
+    actions: ['OK'],
+});
