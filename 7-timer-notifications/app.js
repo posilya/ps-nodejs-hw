@@ -34,9 +34,20 @@ for (const timeArg of timeArgs) {
     appliedUnits[unitName] = true; 
 }
 
-setTimeout(notifier.notify, timeSec * 1000, {
-    title: 'Таймер!',
-    message: `Таймер на ${timeSec} секунд(ы) сработал`,
-    sound: true,
-    actions: ['OK'],
-});
+setTimeout(
+    () => {
+        console.log('Таймер!');
+        notifier.notify(
+            {
+                title: 'Таймер!',
+                message: `Таймер на ${timeSec} секунд(ы) сработал`,
+                sound: true,
+                actions: ['OK'],
+            },
+            (error) => {
+                if (error) console.error('!! Не удалось отобразить таймер');
+            }
+        );
+    },
+    timeSec * 1000
+);
